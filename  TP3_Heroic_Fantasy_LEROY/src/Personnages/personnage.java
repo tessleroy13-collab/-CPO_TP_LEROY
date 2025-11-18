@@ -2,22 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package tp3_heroic_fantasy_leroy;
+package Personnages;
 
 /**
  *
  * @author tessl
  */
-public class Arme { protected String nom;
-    protected int niveauAttaque; // <= 100
+public class personnage {
+     protected String nom;
+    protected int niveauVie;
 
-    public Arme(String nom, int niveauAttaque) {
+    public personnage(String nom, int niveauVie) {
         this.nom = nom;
-        this.niveauAttaque = niveauAttaque;
+        this.niveauVie = niveauVie;
     }
 
-    public int getNiveauAttaque() {
-        return niveauAttaque;
+    public int getNiveauVie() {
+        return niveauVie;
     }
 
     public String getNom() {
@@ -26,7 +27,6 @@ public class Arme { protected String nom;
 
     @Override
     public String toString() {
-        return nom + " (attaque : " + niveauAttaque + ")";
+        return nom + " | Vie : " + niveauVie;
     }
-    
 }

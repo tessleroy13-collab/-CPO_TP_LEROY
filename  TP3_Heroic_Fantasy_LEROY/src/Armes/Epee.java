@@ -2,26 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package tp3_heroic_fantasy_leroy;
+package Armes;
 
 /**
  *
  * @author tessl
  */
-public class Baton extends Arme {
-    private final int age; // < 100
+public class Epee extends Arme {
+    private final int finesse; // < 100
 
-    public Baton(String nom, int niveauAttaque, int age) {
+    public Epee(String nom, int niveauAttaque, int finesse) {
         super(nom, niveauAttaque);
-        this.age = age;
+        this.finesse = finesse;
     }
 
-    public int getAge() {
-        return age;
+    public int getFinesse() {
+        return finesse;
     }
 
     @Override
     public String toString() {
-        return super.toString() + " | Âge : " + age;
+        return super.toString() + " | Finesse : " + finesse;
     }
 }
