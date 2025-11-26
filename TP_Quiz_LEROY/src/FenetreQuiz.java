@@ -1,3 +1,6 @@
+
+import java.util.ArrayList;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -8,6 +11,9 @@
  * @author tessl
  */
 public class FenetreQuiz extends javax.swing.JFrame {
+    private ArrayList<Question> listeQuestions;
+    private int indexQuestionCourante = 0;
+    private int score = 0;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FenetreQuiz.class.getName());
 
@@ -16,6 +22,11 @@ public class FenetreQuiz extends javax.swing.JFrame {
      */
     public FenetreQuiz() {
         initComponents();
+         initialiserQuestions();
+        afficherQuestionCourante();
+       
+        
+       
     }
 
     /**
@@ -32,21 +43,42 @@ public class FenetreQuiz extends javax.swing.JFrame {
         btnRep2 = new javax.swing.JButton();
         btnRep3 = new javax.swing.JButton();
         btnRep4 = new javax.swing.JButton();
-        lblfeedback = new javax.swing.JLabel();
-        btnqstsuivante = new javax.swing.JButton();
-        lblscore = new javax.swing.JLabel();
+        lblFeedback = new javax.swing.JLabel();
+        QuestionSuivante = new javax.swing.JButton();
+        lblScore = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblQuestion.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         lblQuestion.setForeground(new java.awt.Color(204, 0, 51));
         lblQuestion.setText("question");
+        getContentPane().add(lblQuestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 82, 540, -1));
 
-        btnRep1.setText("question suivante");
+        btnRep1.setText("reponse 1");
+        btnRep1.setActionCommand("reponse 1");
+        btnRep1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRep1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRep1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, 165, -1));
 
         btnRep2.setText("reponse 2");
+        btnRep2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRep2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRep2, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 143, 134, -1));
 
         btnRep3.setText("reponse 3");
+        btnRep3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRep3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRep3, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 143, 125, -1));
 
         btnRep4.setText("reponse 4");
         btnRep4.addActionListener(new java.awt.event.ActionListener() {
@@ -54,83 +86,56 @@ public class FenetreQuiz extends javax.swing.JFrame {
                 btnRep4ActionPerformed(evt);
             }
         });
+        getContentPane().add(btnRep4, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 197, 125, -1));
 
-        lblfeedback.setText("jLabel1");
+        lblFeedback.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        lblFeedback.setForeground(new java.awt.Color(153, 0, 255));
+        lblFeedback.setText("jLabel1");
+        getContentPane().add(lblFeedback, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 54, 250, -1));
 
-        btnqstsuivante.setText("reponse 1");
-        btnqstsuivante.addActionListener(new java.awt.event.ActionListener() {
+        QuestionSuivante.setForeground(new java.awt.Color(51, 0, 255));
+        QuestionSuivante.setText("question suivante ");
+        QuestionSuivante.setActionCommand("question suivante ");
+        QuestionSuivante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnqstsuivanteActionPerformed(evt);
+                QuestionSuivanteActionPerformed(evt);
             }
         });
+        getContentPane().add(QuestionSuivante, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, 150, -1));
 
-        lblscore.setText("score");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(138, 138, 138))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnRep4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblfeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(94, 94, 94)
-                                .addComponent(btnqstsuivante, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnRep3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(94, 94, 94)
-                                .addComponent(btnRep2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(21, 21, 21))))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(166, 166, 166)
-                        .addComponent(lblscore, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(btnRep1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblscore)
-                .addGap(60, 60, 60)
-                .addComponent(lblQuestion)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRep3)
-                    .addComponent(btnRep2))
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRep4)
-                    .addComponent(btnqstsuivante))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(lblfeedback)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRep1))
-        );
+        lblScore.setText("score");
+        getContentPane().add(lblScore, new org.netbeans.lib.awtextra.AbsoluteConstraints(166, 6, 130, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnqstsuivanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnqstsuivanteActionPerformed
-        // TODO add your handling code here:
-        string Q1 =
-    }//GEN-LAST:event_btnqstsuivanteActionPerformed
+    private void QuestionSuivanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuestionSuivanteActionPerformed
+          indexQuestionCourante++;
+        if (indexQuestionCourante < listeQuestions.size()) {
+            afficherQuestionCourante();
+        } else {
+            lblQuestion.setText("FIN DU QUIZ !");
+            lblFeedback.setText("Quiz terminé. Score final : " + score + " / " + listeQuestions.size());
+            QuestionSuivante.setEnabled(false);
+            lblScore.setText("Score final : " + score + " / " + listeQuestions.size());
+        }
+    }//GEN-LAST:event_QuestionSuivanteActionPerformed
 
     private void btnRep4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRep4ActionPerformed
-        // TODO add your handling code here:
+        verifierReponse(4);
     }//GEN-LAST:event_btnRep4ActionPerformed
+
+    private void btnRep3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRep3ActionPerformed
+        verifierReponse(3);
+    }//GEN-LAST:event_btnRep3ActionPerformed
+
+    private void btnRep2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRep2ActionPerformed
+        verifierReponse(2);
+    }//GEN-LAST:event_btnRep2ActionPerformed
+
+    private void btnRep1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRep1ActionPerformed
+        verifierReponse(1);
+    }//GEN-LAST:event_btnRep1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,14 +163,89 @@ public class FenetreQuiz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton QuestionSuivante;
     private javax.swing.JButton btnRep1;
     private javax.swing.JButton btnRep2;
     private javax.swing.JButton btnRep3;
     private javax.swing.JButton btnRep4;
-    private javax.swing.JButton btnqstsuivante;
+    private javax.swing.JLabel lblFeedback;
     private javax.swing.JLabel lblQuestion;
-    private javax.swing.JLabel lblfeedback;
-    private javax.swing.JLabel lblscore;
+    private javax.swing.JLabel lblScore;
     // End of variables declaration//GEN-END:variables
-}
+
+    private void initialiserQuestions() {
+       listeQuestions = new ArrayList<>();
+
+listeQuestions.add(new Question(
+    "Le pingouin vole ?",
+    "Oui", "Non", "Parfois", "Seulement le dimanche",
+    2));
+
+listeQuestions.add(new Question(
+    "Couleur d’un nuage heureux ?",
+    "Bleu", "Rose", "Blanc", "Arc-en-ciel",
+    3));
+
+listeQuestions.add(new Question(
+    "Animal le plus nul au cache-cache ?",
+    "Girafe", "Poisson", "Panda", "Mouton",
+    1));
+
+listeQuestions.add(new Question(
+    "Boisson préférée d’un robot ?",
+    "Huile", "Café", "Batterie", "Eau",
+    1));
+
+listeQuestions.add(new Question(
+    "Bruitage d’une limace rapide ?",
+    "Zoom", "Sploutch", "Tchou", "…",
+    1));
+        
+    }
+
+    private void afficherQuestionCourante() {
+           if (indexQuestionCourante >= listeQuestions.size()) {
+            return;
+        }
+       
+        Question question = listeQuestions.get(indexQuestionCourante);
+       
+        lblQuestion.setText(question.getIntitule());
+       
+        btnRep1.setText(question.getProposition1());
+        btnRep2.setText(question.getProposition2());
+        btnRep3.setText(question.getProposition3());
+        btnRep4.setText(question.getProposition4());
+       
+        btnRep1.setEnabled(true);
+        btnRep2.setEnabled(true);
+        btnRep3.setEnabled(true);
+        btnRep4.setEnabled(true);
+       
+        QuestionSuivante.setEnabled(false);
+       
+        lblFeedback.setText("Choisissez une réponse...");
+        lblScore.setText("Score : " + score + " / " + listeQuestions.size());
+    }
+     private void verifierReponse(int reponseChoisie) {
+        Question questionCourante = listeQuestions.get(indexQuestionCourante);
+
+        if (reponseChoisie == questionCourante.getIndexBonneReponse()) {
+            lblFeedback.setText("Bonne réponse !!!");
+            score++;
+        } else {
+            lblFeedback.setText("Mauvaise réponse. La bonne réponse était la proposition " + questionCourante.getIndexBonneReponse() + ".");
+        }
+       
+        btnRep1.setEnabled(false);
+        btnRep2.setEnabled(false);
+        btnRep3.setEnabled(false);
+        btnRep4.setEnabled(false);
+       
+        QuestionSuivante.setEnabled(true);
+       
+        lblScore.setText("Score : " + score + " / " + (indexQuestionCourante + 1));
+    }
+    }
+
 
