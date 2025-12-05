@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author tessl
  */
 public class FenetreQuiz extends javax.swing.JFrame {
-    private ArrayList<Question> listeQuestions;
+    private ArrayList<question> listeQuestions;
     private int indexQuestionCourante = 0;
     private int score = 0;
     
@@ -176,27 +176,27 @@ public class FenetreQuiz extends javax.swing.JFrame {
     private void initialiserQuestions() {
        listeQuestions = new ArrayList<>();
 
-listeQuestions.add(new Question(
+listeQuestions.add(new question(
     "Le pingouin vole ?",
     "Oui", "Non", "Parfois", "Seulement le dimanche",
     2));
 
-listeQuestions.add(new Question(
+listeQuestions.add(new question(
     "Couleur d’un nuage heureux ?",
     "Bleu", "Rose", "Blanc", "Arc-en-ciel",
     3));
 
-listeQuestions.add(new Question(
+listeQuestions.add(new question(
     "Animal le plus nul au cache-cache ?",
     "Girafe", "Poisson", "Panda", "Mouton",
     1));
 
-listeQuestions.add(new Question(
+listeQuestions.add(new question(
     "Boisson préférée d’un robot ?",
     "Huile", "Café", "Batterie", "Eau",
     1));
 
-listeQuestions.add(new Question(
+listeQuestions.add(new question(
     "Bruitage d’une limace rapide ?",
     "Zoom", "Sploutch", "Tchou", "…",
     1));
@@ -208,7 +208,7 @@ listeQuestions.add(new Question(
             return;
         }
        
-        Question question = listeQuestions.get(indexQuestionCourante);
+        question question = listeQuestions.get(indexQuestionCourante);
        
         lblQuestion.setText(question.getIntitule());
        
@@ -228,7 +228,7 @@ listeQuestions.add(new Question(
         lblScore.setText("Score : " + score + " / " + listeQuestions.size());
     }
      private void verifierReponse(int reponseChoisie) {
-        Question questionCourante = listeQuestions.get(indexQuestionCourante);
+        question questionCourante = listeQuestions.get(indexQuestionCourante);
 
         if (reponseChoisie == questionCourante.getIndexBonneReponse()) {
             lblFeedback.setText("Bonne réponse !!!");
