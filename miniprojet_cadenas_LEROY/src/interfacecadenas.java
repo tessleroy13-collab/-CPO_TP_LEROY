@@ -104,7 +104,7 @@ public class interfacecadenas extends javax.swing.JFrame {
                         up_chiffre_2ActionPerformed(evt);
                     }
                 });
-                getContentPane().add(up_chiffre_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 77, -1, -1));
+                getContentPane().add(up_chiffre_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 77, 70, -1));
 
                 down_chiffre_2.setText("\\/");
                 down_chiffre_2.addActionListener(new java.awt.event.ActionListener() {
