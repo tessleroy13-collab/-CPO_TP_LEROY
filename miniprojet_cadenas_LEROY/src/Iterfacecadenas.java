@@ -63,6 +63,11 @@ public class Iterfacecadenas extends javax.swing.JFrame {
             getContentPane().add(up_chiffre_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 77, 75, -1));
 
             down_chiffre_1.setText("\\/");
+            down_chiffre_1.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    down_chiffre_1ActionPerformed(evt);
+                }
+            });
             getContentPane().add(down_chiffre_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 174, 75, -1));
 
             up_chiffre_2.setText("/\\");
@@ -74,9 +79,19 @@ public class Iterfacecadenas extends javax.swing.JFrame {
                 getContentPane().add(up_chiffre_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 77, -1, -1));
 
                 down_chiffre_2.setText("\\/");
+                down_chiffre_2.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        down_chiffre_2ActionPerformed(evt);
+                    }
+                });
                 getContentPane().add(down_chiffre_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 174, 75, -1));
 
                 up_chiffre_3.setText("/\\");
+                    up_chiffre_3.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            up_chiffre_3ActionPerformed(evt);
+                        }
+                    });
                     getContentPane().add(up_chiffre_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(194, 77, 75, -1));
 
                     down_chiffre_3.setText("\\/");
@@ -88,6 +103,11 @@ public class Iterfacecadenas extends javax.swing.JFrame {
                     getContentPane().add(down_chiffre_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 174, 75, -1));
 
                     up_chiffre_4.setText("/\\");
+                        up_chiffre_4.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                up_chiffre_4ActionPerformed(evt);
+                            }
+                        });
                         getContentPane().add(up_chiffre_4, new org.netbeans.lib.awtextra.AbsoluteConstraints(287, 77, 75, -1));
 
                         down_chiffre_4.setText("\\/");
@@ -160,6 +180,11 @@ public class Iterfacecadenas extends javax.swing.JFrame {
                         getContentPane().add(bouton_recommencer, new org.netbeans.lib.awtextra.AbsoluteConstraints(347, 345, 114, -1));
 
                         bouton_tester.setText("Tester");
+                        bouton_tester.addActionListener(new java.awt.event.ActionListener() {
+                            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                bouton_testerActionPerformed(evt);
+                            }
+                        });
                         getContentPane().add(bouton_tester, new org.netbeans.lib.awtextra.AbsoluteConstraints(408, 125, 75, -1));
 
                         pack();
@@ -184,6 +209,26 @@ public class Iterfacecadenas extends javax.swing.JFrame {
     private void bouton_recommencerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bouton_recommencerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bouton_recommencerActionPerformed
+
+    private void down_chiffre_1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_down_chiffre_1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_down_chiffre_1ActionPerformed
+
+    private void down_chiffre_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_down_chiffre_2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_down_chiffre_2ActionPerformed
+
+    private void up_chiffre_3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up_chiffre_3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_up_chiffre_3ActionPerformed
+
+    private void up_chiffre_4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_up_chiffre_4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_up_chiffre_4ActionPerformed
+
+    private void bouton_testerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bouton_testerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bouton_testerActionPerformed
 
     /**
      * @param args the command line arguments
