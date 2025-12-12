@@ -45,7 +45,29 @@ public class interfacecadenas extends javax.swing.JFrame {
         }
     }
     
+public void lancerNouvellePartie(int maxTentatives) {
+    // Démarre le jeu avec 4 chiffres et le nombre de tentatives choisi
+    jeu.démarrerJeu(4, maxTentatives); 
 
+    // Réinitialisation de l'affichage
+    texte_chiffre_0.setText("0");
+    texte_chiffre_1.setText("0");
+    texte_chiffre_2.setText("0");
+    texte_chiffre_3.setText("0");
+
+    texte_nb_chiffres_exacts.setText("0");
+    texte_nb_chiffres_haut.setText("0");
+    texte_nb_chiffres_bas.setText("0");
+    
+    // Mise à jour de l'introduction et du score
+    texte_intro.setText("Trouvez le bon code en moins de " + jeu.getMaxTentatives() + " tentatives !");
+    textes_score.setText(jeu.getTentativesEffectuees() + " sur " + jeu.getMaxTentatives());
+    
+    bouton_tester.setEnabled(true);
+    
+    // Rendre l'interface du jeu visible
+    this.setVisible(true);
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -270,38 +292,50 @@ public class interfacecadenas extends javax.swing.JFrame {
     }//GEN-LAST:event_up_chiffre_4ActionPerformed
 
     private void bouton_testerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bouton_testerActionPerformed
-        if (jeu.estPartieTerminee()) {
-            return;
+    if (jeu.estPartieTerminee()) {
+        return;
+    }
+
+    int[] essai = new int[4];
+    try {
+        essai[0] = Integer.parseInt(texte_chiffre_0.getText());
+        essai[1] = Integer.parseInt(texte_chiffre_1.getText());
+        essai[2] = Integer.parseInt(texte_chiffre_2.getText());
+        essai[3] = Integer.parseInt(texte_chiffre_3.getText());
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Erreur: Les chiffres ne sont pas au format attendu.", "Erreur", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    int[] resultats = jeu.testerCombinaison(essai);
+    texte_nb_chiffres_exacts.setText(String.valueOf(resultats[0]));
+    texte_nb_chiffres_haut.setText(String.valueOf(resultats[1]));
+    texte_nb_chiffres_bas.setText(String.valueOf(resultats[2]));
+    textes_score.setText(jeu.getTentativesEffectuees() + " sur " + jeu.getMaxTentatives());
+
+    // 2. FIN : Votre logique de fin de partie (maintenant complète)
+    if (jeu.estPartieTerminee()) {
+        bouton_tester.setEnabled(false);
+        String message;
+
+        if (jeu.estGagne()) {
+            message = "🥳 BRAVO !!! Vous avez trouvé le code secret " 
+                    + jeu.getCodeSecretString() + " en " 
+                    + jeu.getTentativesEffectuees() + " tentatives sur " 
+                    + jeu.getMaxTentatives() + " ! Voulez-vous rejouer au même niveau ?";
+        } else {
+            message = "😭 PERDU !! Le code secret était : " + jeu.getCodeSecretString() 
+                    + "\nVous avez épuisé vos tentatives. Voulez-vous rejouer au même niveau ?";
         }
+        
+        int reponse = JOptionPane.showConfirmDialog(this, message, "Fin de partie", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
-        int[] essai = new int[4];
-        try {
-            essai[0] = Integer.parseInt(texte_chiffre_0.getText());
-            essai[1] = Integer.parseInt(texte_chiffre_1.getText());
-            essai[2] = Integer.parseInt(texte_chiffre_2.getText());
-            essai[3] = Integer.parseInt(texte_chiffre_3.getText());
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Erreur: Les chiffres ne sont pas au format attendu.", "Erreur", JOptionPane.ERROR_MESSAGE);
-            return;
+        if (reponse == JOptionPane.YES_OPTION) {
+            // Utilise la méthode d'initialisation du jeu, en conservant le nombre de tentatives actuel
+            lancerNouvellePartie(jeu.getMaxTentatives()); 
         }
-
-        int[] resultats = jeu.testerCombinaison(essai);
-        texte_nb_chiffres_exacts.setText(String.valueOf(resultats[0]));
-        texte_nb_chiffres_haut.setText(String.valueOf(resultats[1]));
-        texte_nb_chiffres_bas.setText(String.valueOf(resultats[2]));
-        textes_score.setText(jeu.getTentativesEffectuees() + " sur " + jeu.getMaxTentatives());
-
-        if (jeu.estPartieTerminee()) {
-            bouton_tester.setEnabled(false);
-            String message;
-            if (jeu.estGagne()) {
-                message = "BRAVO !!! Vous avez trouvé le code secret : " + jeu.getCodeSecretString();
-            } else {
-                message = "PERDU !! Le code secret était : " + jeu.getCodeSecretString();
-            }
-            JOptionPane.showMessageDialog(this, message, "Fin de partie", JOptionPane.INFORMATION_MESSAGE);
-        }
+    }
     }//GEN-LAST:event_bouton_testerActionPerformed
 
     /**
@@ -332,7 +366,7 @@ public class interfacecadenas extends javax.swing.JFrame {
                 }
             }
         }catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(Level.SEVERE, null, ex);
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
