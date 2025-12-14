@@ -1,5 +1,4 @@
 
-import java.util.Random;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -10,24 +9,48 @@ import java.util.Random;
  *
  * @author tessl
  */
+
+   import java.util.Random;
+
 public class jeu {
-   private static final int LONGUEUR_CODE = 4;
-    private static final int MAX_TENTATIVES = 5;
+
+     public enum NiveauDifficulte {
+        FACILE(15),      
+        NORMAL(10),      
+        DIFFICILE(5);    
+
+        private final int maxTentatives;
+
+        NiveauDifficulte(int maxTentatives) {
+            this.maxTentatives = maxTentatives;
+        }
+
+        public int getMaxTentatives() {
+            return maxTentatives;
+        }
+    }
+   
+    private static final int LONGUEUR_CODE = 4;
     private static final int MIN_CHIFFRE = 0;
     private static final int MAX_CHIFFRE = 9;
    
     private int[] codeSecret;
     private int tentativesRestantes;
     private boolean estGagne;
+    private int maxTentativesJeu;
+    private NiveauDifficulte niveauCourant;
    
-    public jeu() {
-        démarrerJeu();
+   
+    public jeu(NiveauDifficulte niveau) {
+    this.niveauCourant = niveau;
+    this.maxTentativesJeu = niveau.getMaxTentatives(); // Récupère 15, 10 ou 5
+    démarrerJeu();
     }
    
     public final void démarrerJeu() {
-        codeSecret = générerCodeSecret();
-        tentativesRestantes = MAX_TENTATIVES;
-        estGagne = false;
+    codeSecret = générerCodeSecret();
+    tentativesRestantes = maxTentativesJeu; // Utilise la variable d'instance
+    estGagne = false;
     }
    
     private int[] générerCodeSecret() {
@@ -62,7 +85,9 @@ public class jeu {
                 tropBas++;
             }
         }
+       
         tentativesRestantes--;
+       
         if (exacts == LONGUEUR_CODE) {
             estGagne = true;
         }
@@ -75,11 +100,11 @@ public class jeu {
     }
    
     public int getTentativesEffectuees() {
-        return MAX_TENTATIVES - tentativesRestantes;
+        return maxTentativesJeu - tentativesRestantes;
     }
    
     public int getMaxTentatives() {
-        return MAX_TENTATIVES;
+        return maxTentativesJeu;
     }
 
     public boolean estGagne() {
@@ -98,9 +123,4 @@ public class jeu {
         }
         return sb.toString();
     }
-
-    void démarrerJeu(int i, int maxTentatives) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
-

@@ -1,52 +1,29 @@
+import java.util.logging.Level;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
-/**
- *
- * @author tessl
- */
+
+
 public class FenetreFin extends javax.swing.JFrame {
     
+    // Variables et logger
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FenetreFin.class.getName());
 
+    
 
-    public FenetreFin(boolean gagne, String code, int essais, int max) {
-        initComponents(gagne, code, essais, max);
-    }
-
-    private void initComponents(boolean gagne, String code, int essais, int max) {
-
-        setLayout(null);
-        setSize(350, 220);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        javax.swing.JLabel message = new javax.swing.JLabel();
-        javax.swing.JLabel codeLbl = new javax.swing.JLabel("Code secret : " + code);
-        javax.swing.JButton recommencer = new javax.swing.JButton("Recommencer");
-
-        message.setBounds(30, 30, 300, 30);
-        codeLbl.setBounds(30, 70, 300, 30);
-        recommencer.setBounds(100, 120, 130, 30);
-
+    // Constructeur: C'est le SEUL CONSTRUCTEUR nécessaire
+    public FenetreFin(boolean gagne, String codeSecret, int tentatives) {
+        initComponents();
         if (gagne) {
-            message.setText("🎉 BRAVO ! Vous avez gagné !");
+            message_fin.setText("BRAVO ! Vous avez trouvé le code en " + tentatives + " tentatives !");
         } else {
-            message.setText("😭 PERDU ! Plus de tentatives.");
+            message_fin.setText("PERDU ! Vous avez épuisé vos tentatives.");
         }
-
-        add(message);
-        add(codeLbl);
-        add(recommencer);
-
-        recommencer.addActionListener(e -> {
-            new FenetreAccueil().setVisible(true);
-            dispose();
-        });
+        code_secret.setText("Le code secret était : " + codeSecret);
     }
-}
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -108,39 +85,23 @@ public class FenetreFin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bouton_recommencerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bouton_recommencerActionPerformed
-        // TODO add your handling code here:
+          try {
+        FenetreAccueil accueil = new FenetreAccueil();
+        accueil.setVisible(true);
+        this.dispose();
+    } catch (Exception ex) {
+        // C'EST CETTE LIGNE QUI NÉCESSITE Level
+        logger.log(Level.SEVERE, "Impossible d'ouvrir FenetreAccueil", ex);
+    }
     }//GEN-LAST:event_bouton_recommencerActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new FenetreFin(jeu.estGagne(), jeu.getCodeSecretString(), jeu.getTentativesEffectuees(), jeu.getMaxTentatives()).setVisible(true);
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bouton_recommencer;
     private javax.swing.JLabel code_secret;
     private javax.swing.JLabel message_fin;
     // End of variables declaration//GEN-END:variables
-
+}
